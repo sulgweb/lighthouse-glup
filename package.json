@@ -1,0 +1,20 @@
+{
+  "name": "lighthouse-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "mobile":"gulp start-mobile",
+    "desktop":"gulp start-desktop"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "chrome-launcher": "^0.13.4",
+    "del": "^6.0.0",
+    "fs-extra": "^9.1.0",
+    "gulp": "^4.0.2",
+    "lighthouse": "^7.3.0"
+  }
+}
