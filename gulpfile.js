@@ -32,7 +32,7 @@ async function launchChrome() {
             enableExtensions: true,
             logLevel: "error"
         });
-        console.log("chrome.port:", chrome.port)
+        //console.log("chrome.port:", chrome.port)
         return {
             port: chrome.port,
             chromeFlags: [
@@ -65,10 +65,10 @@ async function run(url, timestamp, num, config) {
     let report = genReport(result);
     // 保存报告
     await printer.write(report, 'html', `./cases/lighthouse-report@${timestamp}-${num}.html`);
-    result.lhr.audits['first-meaningful-paint'].rawValue;
+    result.lhr.audits['first-contentful-paint'].rawValue;
     let res = {
         audits:{
-            "first-contentful-paint":result.lhr.audits['first-meaningful-paint']
+            "first-contentful-paint":result.lhr.audits['first-contentful-paint']
         },
         categories:result.lhr.categories,
         lighthouseVersion:result.lhr.lighthouseVersion,
@@ -91,7 +91,9 @@ gulp.task('clean:report', function (cb) {
 gulp.task('create:report-desktop', async function (cb) {
     let timestamp = Date.now();
     let spent = [];
+    console.log(`共 ${reportList.length} 个任务`)
     for (let i = 0; i < reportList.length; i++) {
+        console.log(`当前第 ${i+1} 个任务`)
         spent.push(await run(reportList[i], timestamp, i, desktopConfig));
     }
     let template = await fs.readFileSync('./summary/template/template.html', 'utf-8');
@@ -109,7 +111,9 @@ gulp.task('create:report-desktop', async function (cb) {
 gulp.task('create:report-mobile', async function (cb) {
     let timestamp = Date.now();
     let spent = [];
+    console.log(`共 ${reportList.length} 个任务`)
     for (let i = 0; i < reportList.length; i++) {
+        console.log(`当前第 ${i+1} 个任务`)
         spent.push(await run(reportList[i], timestamp, i, mobileConfig));
     }
     // 替换模板中的内容
